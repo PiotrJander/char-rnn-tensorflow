@@ -88,7 +88,7 @@ class Model():
         tf.summary.histogram('loss', loss)
         tf.summary.scalar('train_loss', self.cost)
 
-    def sample(self, sess, chars, vocab, num=200, prime='The ', sampling_type=1):
+    def sample(self, sess, chars, vocab, num=200, prime='The ', sampling_type=1, temperature=1):
         state = sess.run(self.cell.zero_state(1, tf.float32))
         for char in prime[:-1]:
             x = np.zeros((1, 1))
@@ -106,7 +106,7 @@ class Model():
         for n in range(num):
             x = np.zeros((1, 1))
             x[0, 0] = vocab[char]
-            feed = {self.input_data: x, self.initial_state: state}
+            feed = {self.input_data: x, self.initial_state: state, self.temperature: temperature}
             [probs, state] = sess.run([self.probs, self.final_state], feed)
             p = probs[0]
 
