@@ -22,7 +22,7 @@ def main():
     parser.add_argument('--sample', type=int, default=1,
                         help='0 to use max at each timestep, 1 to sample at '
                              'each timestep, 2 to sample on spaces')
-    parser.add_argument('--temperature', type=float, dafault=1
+    parser.add_argument('--temperature', type=float, dafault=1,
                         help='Temperature in softmax like in reinforcement learning')
 
     args = parser.parse_args()
