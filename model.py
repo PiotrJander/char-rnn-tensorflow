@@ -65,7 +65,8 @@ class Model():
 
 
         self.logits = tf.matmul(output, softmax_w) + softmax_b
-        self.probs = tf.nn.softmax(self.logits)
+        self.temperature = tf.placeholder_with_default(tf.constant(1, dtype=tf.float32), None)
+        self.probs = tf.nn.softmax(self.logits / self.temperature)
         loss = legacy_seq2seq.sequence_loss_by_example(
                 [self.logits],
                 [tf.reshape(self.targets, [-1])],
